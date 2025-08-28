@@ -4,8 +4,6 @@ formatters:
     - goimports
   exclusions:
     generated: lax
-    paths:
-      - /zz_generated_
 linters:
   default: none
   enable:
@@ -15,11 +13,17 @@ linters:
     - revive
   exclusions:
     generated: lax
-    paths:
-      - /zz_generated_
     presets:
       - comments
       - common-false-positives
       - legacy
       - std-error-handling
+    rules:
+      # Exclude some linters from running on tests files.
+      - path: util/proxy_test.go
+        linters:
+          - revive
+      - path: util/proxy.go
+        linters:
+          - revive
 version: "2"
